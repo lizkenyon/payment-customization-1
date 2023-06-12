@@ -1,0 +1,9 @@
+{
+    "operations": [
+      {
+        "hide": {
+          "paymentMethodID": 123456789
+        }
+      }
+    ]
+  }
