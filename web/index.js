@@ -19,7 +19,7 @@ const STATIC_PATH =
   process.env.NODE_ENV === "production"
     ? `${process.cwd()}/frontend/dist`
     : `${process.cwd()}/frontend/`;
-
+// [START payment_customization-hide-payment-method.payment_customization_mutation]
 const PAYMENT_CUSTOMIZATION = `
   mutation paymentCustomizationCreate($input: PaymentCustomizationInput!) {
     paymentCustomizationCreate(paymentCustomization: $input) {
@@ -32,6 +32,7 @@ const PAYMENT_CUSTOMIZATION = `
     }
   }
 `;
+// [END payment_customization-hide-payment-method.payment_customization_mutation]
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
   shopify.config.auth.callbackPath,
   shopify.auth.callback(),
+  // [START payment_customization-hide-payment-method.create_payment_customization]
   // Create a payment customization object with a reference to the function ID on install
   async (_req, res, next) => {
     const session = res.locals.shopify.session;
@@ -57,6 +59,7 @@ app.get(
       },
     });
     next();
+// [END payment_customization-hide-payment-method.create_payment_customization]
   },
   shopify.redirectToShopifyOrAppRoot()
 );
